@@ -45,9 +45,14 @@
     var(--amarelo-neon),
     var(--rosa-escuro)
   );
-  --gradiente-rosa-ciano: linear-gradient(
+  /* --gradiente-rosa-ciano: linear-gradient( botao fechar modal
     45deg,
     var(--rosa-neon),
+    var(--ciano-neon)
+  ); */
+  --gradiente-rosa-ciano: linear-gradient(
+    45deg,
+    var(--azul-neon),
     var(--ciano-neon)
   );
   --gradiente-verde-ciano: linear-gradient(
@@ -206,7 +211,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   font-size: var(--tamanho-rotulo-tier);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  border-right: var(--borda-amarela);
+  /* border-right: var(--borda-amarela);   */
   letter-spacing: 2px;
 }
 
