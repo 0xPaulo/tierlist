@@ -36,11 +36,9 @@
   </div>
 
   <div class="image-grid" id="image-grid">
-    <!-- As imagens serão carregadas automaticamente pelo JavaScript -->
   </div>
 
   <script>
-    // Função para criar partículas flutuantes
     function createParticle() {
       const particle = document.createElement('div');
       particle.className = 'particle';
@@ -53,10 +51,8 @@
       }, 4000);
     }
 
-    // Criar partículas periodicamente
     setInterval(createParticle, 300);
 
-    // Sistema de drag and drop aprimorado
     let draggedElement = null;
 
     const draggables = document.querySelectorAll('.tier-img');
@@ -100,25 +96,21 @@
     function addDragListeners(element) {
       element.addEventListener('dragstart', handleDragStart);
       element.addEventListener('dragend', handleDragEnd);
-      addContextMenu(element); // Adicione esta linha
+      addContextMenu(element); 
     }
 
-    // Adicionar event listeners para elementos existentes
     draggables.forEach(addDragListeners);
 
-    // Event listeners para drop zones
     dropZones.forEach(zone => {
       zone.addEventListener('dragover', handleDragOver);
       zone.addEventListener('dragleave', handleDragLeave);
       zone.addEventListener('drop', handleDrop);
     });
 
-    // Event listeners para o grid de imagens (permitir voltar imagens)
     imageGrid.addEventListener('dragover', handleDragOver);
     imageGrid.addEventListener('dragleave', handleDragLeave);
     imageGrid.addEventListener('drop', handleDrop);
 
-    // Efeito sonoro simulado (visual feedback)
     dropZones.forEach(zone => {
       zone.addEventListener('drop', () => {
         zone.style.boxShadow = '0 0 30px #ffffff';
@@ -128,43 +120,35 @@
       });
     });
 
-    // Função para carregar todas as imagens da pasta
     async function loadImages() {
       const imageGrid = document.getElementById('image-grid');
-      const imageFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp']; // formatos suportados
+      const imageFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-      // Gera números de 1 a 500 (ou quantas imagens você tiver)
       for (let i = 1; i <= 685; i++) {
-        // Tenta diferentes formatos para cada número
         for (let format of imageFormats) {
           const img = document.createElement('img');
-          // img.src = `comprimidas/img${i}.${format}`; // ou o padrão de nome que suas imagens seguem
-          // img.src = `imagens/foto${i.toString().padStart(3, '0')}.jpg`; // para foto001, foto002, etc.
-          img.src = `comprimidas/img${i.toString().padStart(3, '0')}.jpg`;// ou o padrão de nome que suas imagens seguem
+          // img.src = `comprimidas/img${i}.${format}`; 
+          // img.src = `imagens/foto${i.toString().padStart(3, '0')}.jpg`; 
+          img.src = `comprimidas/img${i.toString().padStart(3, '0')}.jpg`;
 
           img.className = 'tier-img';
           img.draggable = true;
           img.alt = `Item ${i}`;
 
-          // Adiciona a imagem quando ela carregar com sucesso
           img.onload = function () {
             imageGrid.appendChild(img);
             addDragListeners(img);
           };
 
-          // Se não carregar, tenta o próximo formato
           img.onerror = function () {
-            // Silenciosamente ignora imagens que não existem
           };
 
-          break; // Para no primeiro formato encontrado
+          break;
         }
       }
     }
 
-    // Chama a função quando a página carregar
     window.addEventListener('load', loadImages);
-    // Função para abrir modal da imagem
     function openImageModal(imageSrc) {
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImage');
@@ -173,39 +157,33 @@
       document.body.style.overflow = 'hidden'; // Previne scroll
     }
 
-    // Função para fechar modal
     function closeImageModal() {
       const modal = document.getElementById('imageModal');
       modal.style.display = 'none';
       document.body.style.overflow = 'auto'; // Restaura scroll
     }
 
-    // Adicionar evento de clique direito para todas as imagens
     function addContextMenu(img) {
       img.addEventListener('contextmenu', (e) => {
-        e.preventDefault(); // Previne menu padrão do navegador
+        e.preventDefault();
         openImageModal(img.src);
       });
     }
 
-    // Aplicar para imagens existentes
     document.querySelectorAll('.tier-img').forEach(addContextMenu);
 
-    // Fechar modal ao clicar fora da imagem
     document.getElementById('imageModal').addEventListener('click', (e) => {
       if (e.target.classList.contains('image-modal')) {
         closeImageModal();
       }
     });
 
-    // Fechar modal com tecla ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeImageModal();
       }
     });
   </script>
-  <!-- Modal para visualizar imagem -->
   <div id="imageModal" class="image-modal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeImageModal()">&times;</button>
