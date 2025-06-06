@@ -93,7 +93,9 @@ body {
   font-family: var(--fonte-principal);
   margin: 0;
   padding: 0;
-  background-image: url("imagens/image.png"), var(--gradiente-cores-principais);
+  /* background-image: url("imagens/image.png"), var(--gradiente-cores-principais); */
+  background-image: url("imagens/How-to-Draw-a-Pug.jpg"),
+    var(--gradiente-cores-principais);
   background-size: var(--tamanho-imagem-pug), var(--tamanho-gradiente);
   background-repeat: repeat, no-repeat;
   background-blend-mode: overlay;
