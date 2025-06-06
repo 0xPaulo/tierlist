@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Courier+New&display=swap");
 
-/* Variáveis de cores */
 :root {
-  /* Cores principais */
   --rosa-neon: #f355ff;
   --ciano-neon: #4df0ff;
   --amarelo-neon: #ffb347;
@@ -14,8 +12,6 @@
   --azul-neon: #3d7dff;
   --vinho: #6a0dad;
   --roxo-profundo: #4b0082;
-
-  /* Cores de fundo */
   --fundo-preto-translucido: rgba(0, 0, 0, 0.8);
   --fundo-branco-translucido: rgba(255, 255, 255, 0.1);
   --fundo-radial-escuro: radial-gradient(
@@ -23,21 +19,15 @@
     rgba(0, 0, 0, 0.7),
     rgba(255, 255, 255, 0.1)
   );
-
-  /* Bordas */
   --borda-ciano: 3px solid var(--ciano-neon);
   --borda-rosa: 3px solid var(--rosa-neon);
   --borda-amarela: 2px solid var(--amarelo-neon);
   --borda-tracejada-ciano: 2px dashed var(--ciano-neon);
-
-  /* Sombras */
   --sombra-rosa: 0 0 20px var(--rosa-neon);
   --sombra-ciano: 0 0 20px var(--ciano-neon);
   --sombra-amarela: 0 0 15px rgba(255, 255, 0, 0.5);
   --sombra-texto-neon: 0 0 10px var(--rosa-neon), 0 0 20px var(--ciano-neon),
     0 0 30px var(--amarelo-neon);
-
-  /* Gradientes */
   --gradiente-cores-principais: linear-gradient(
     45deg,
     var(--rosa-neon),
@@ -45,11 +35,6 @@
     var(--amarelo-neon),
     var(--rosa-escuro)
   );
-  /* --gradiente-rosa-ciano: linear-gradient( botao fechar modal
-    45deg,
-    var(--rosa-neon),
-    var(--ciano-neon)
-  ); */
   --gradiente-rosa-ciano: linear-gradient(
     45deg,
     var(--azul-neon),
@@ -75,27 +60,19 @@
     var(--vinho),
     var(--roxo-profundo)
   );
-
-  /* Tamanhos */
   --tamanho-imagem-pug: 150px 150px;
   --tamanho-gradiente: 400% 400%;
   --largura-container: 1200px;
   --altura-linha-tier: 100px;
   --tamanho-imagem-tier: 80px;
   --tamanho-imagem-tier-mobile: 60px;
-
-  /* Espaçamentos */
   --espacamento-medio: 20px;
   --espacamento-pequeno: 10px;
   --espacamento-minimo: 8px;
   --espacamento-grande: 30px;
-
-  /* Bordas arredondadas */
   --borda-arredondada-grande: 15px;
   --borda-arredondada-media: 10px;
   --borda-arredondada-pequena: 8px;
-
-  /* Tipografia */
   --fonte-principal: "Orbitron", "Courier New", monospace;
   --tamanho-titulo: 2.5em;
   --tamanho-titulo-mobile: 1.8em;
@@ -112,13 +89,9 @@ body {
   font-family: var(--fonte-principal);
   margin: 0;
   padding: 0;
-
   background-image: url("imagens/image.png"), var(--gradiente-cores-principais);
-
   background-size: var(--tamanho-imagem-pug), var(--tamanho-gradiente);
-
   background-repeat: repeat, no-repeat;
-
   background-blend-mode: overlay;
   min-height: 100vh;
   display: flex;
@@ -132,11 +105,9 @@ body {
   0% {
     background-position: 0 0, 0 0;
   }
-
   50% {
     background-position: 0 0, 100% 100%;
   }
-
   100% {
     background-position: 0 0, 0 0;
   }
@@ -158,7 +129,6 @@ h1 {
   from {
     text-shadow: var(--sombra-texto-neon);
   }
-
   to {
     text-shadow: 0 0 20px var(--rosa-neon), 0 0 30px var(--ciano-neon),
       0 0 40px var(--amarelo-neon);
@@ -187,10 +157,9 @@ h1 {
   background: linear-gradient(
     90deg,
     rgba(var(--rosa-neon-rgb), 0.3),
-    /* Converta as cores para RGB */ rgba(var(--laranja-neon-rgb), 0.3)
+    rgba(var(--laranja-neon-rgb), 0.3)
   );
-  /* box-shadow: var(--sombra-amarela); */
-  box-shadow: 0 0 15px rgba(243, 85, 255, 0.5); /* --rosa-neon */
+  box-shadow: 0 0 15px rgba(243, 85, 255, 0.5);
   transition: all 0.3s ease;
 }
 
@@ -210,7 +179,6 @@ h1 {
   -webkit-text-fill-color: transparent;
   font-size: var(--tamanho-rotulo-tier);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* border-right: var(--borda-amarela);   */
   letter-spacing: 2px;
 }
 
@@ -274,7 +242,6 @@ h1 {
   transform: scale(0.95);
 }
 
-/* Efeitos especiais para cada tier */
 .tier-row:nth-child(1) .tier-label {
   background: linear-gradient(45deg, var(--vermelho-neon), var(--amarelo-neon));
   background-clip: text;
@@ -286,7 +253,6 @@ h1 {
   from {
     filter: brightness(1);
   }
-
   to {
     filter: brightness(1.5);
   }
@@ -316,7 +282,6 @@ h1 {
   -webkit-background-clip: text;
 }
 
-/* Scrollbar customizada */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -334,7 +299,6 @@ h1 {
   background: linear-gradient(90deg, var(--rosa-escuro), var(--amarelo-neon));
 }
 
-/* Efeitos de partículas */
 .particle {
   position: fixed;
   width: 4px;
@@ -351,37 +315,31 @@ h1 {
     transform: translateY(100vh) rotate(0deg);
     opacity: 1;
   }
-
   100% {
     transform: translateY(-10px) rotate(360deg);
     opacity: 0;
   }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .tier-container,
   .image-grid {
     margin: var(--espacamento-pequeno);
     padding: 15px;
   }
-
   .tier-label {
     width: 120px;
     font-size: var(--tamanho-rotulo-tier-mobile);
   }
-
   .tier-img {
     width: var(--tamanho-imagem-tier-mobile);
     height: var(--tamanho-imagem-tier-mobile);
   }
-
   h1 {
     font-size: var(--tamanho-titulo-mobile);
   }
 }
 
-/* Modal para visualizar imagem */
 .image-modal {
   display: none;
   position: fixed;
