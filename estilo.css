@@ -412,3 +412,39 @@ h1 {
   transform: scale(1.1);
   box-shadow: 0 0 25px rgba(255, 0, 255, 1);
 }
+.btn-neon-ciano {
+  font-family: var(--fonte-principal);
+  font-size: 1em;
+  padding: 10px 20px;
+  background-color: var(--ciano-neon);
+  border: 2px solid var(--ciano-neon);
+  color: #000;
+  border-radius: var(--borda-arredondada-media);
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px var(--ciano-neon), 0 0 20px var(--ciano-neon);
+}
+
+.btn-neon-ciano:hover {
+  box-shadow: 0 0 15px var(--ciano-neon), 0 0 30px var(--ciano-neon);
+  transform: scale(1.03);
+}
+
+.btn-neon-rosa {
+  margin-top: 10px;
+  font-family: var(--fonte-principal);
+  font-size: 1em;
+  padding: 10px 20px;
+  background-color: var(--rosa-neon);
+  border: 2px solid var(--rosa-neon);
+  color: #000;
+  border-radius: var(--borda-arredondada-media);
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px var(--rosa-neon), 0 0 20px var(--rosa-neon);
+}
+
+.btn-neon-rosa:hover {
+  box-shadow: 0 0 15px var(--rosa-neon), 0 0 30px var(--rosa-neon);
+  transform: scale(1.03);
+}

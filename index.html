@@ -11,6 +11,9 @@
 
 <body>
   <h1>★☆ PUGO TIER LIST ☆★</h1>
+  <button class="btn-neon-ciano" onclick="saveState()">Exportar Tier List</button>
+  <label for="upload" class="btn-neon-rosa">Importar Tier List</label>
+  <input id="upload" type="file" onchange="loadState(this.files[0])" style="display: none;" />
 
   <div class="tier-container">
     <div class="tier-row">
@@ -127,9 +130,9 @@
       for (let i = 1; i <= 685; i++) {
         for (let format of imageFormats) {
           const img = document.createElement('img');
-          // img.src = `comprimidas/img${i}.${format}`; 
-          // img.src = `imagens/foto${i.toString().padStart(3, '0')}.jpg`; 
           img.src = `comprimidas/img${i.toString().padStart(3, '0')}.jpg`;
+
+          img.setAttribute('data-id', `img${i.toString().padStart(3, '0')}`); // <-- AQUI
 
           img.className = 'tier-img';
           img.draggable = true;
@@ -141,9 +144,10 @@
           };
 
           img.onerror = function () {
+            // imagem não encontrada, tenta próximo formato
           };
 
-          break;
+          break; // só tenta o primeiro formato mesmo
         }
       }
     }
@@ -183,6 +187,73 @@
         closeImageModal();
       }
     });
+
+    function loadState(file) {
+      const reader = new FileReader();
+
+      reader.onload = async function (e) {
+        const state = JSON.parse(e.target.result);
+        const allImages = {};
+
+        // Pré-carrega todas as imagens e guarda em cache
+        const promises = [];
+
+        state.forEach(tier => {
+          tier.images.forEach(id => {
+            if (!allImages[id]) {
+              const img = document.createElement('img');
+              img.src = `comprimidas/${id}.jpg`;
+              img.className = 'tier-img';
+              img.draggable = true;
+              img.setAttribute('data-id', id);
+              img.alt = id;
+              addDragListeners(img);
+              allImages[id] = img;
+              promises.push(new Promise(resolve => img.onload = resolve));
+            }
+          });
+        });
+
+        await Promise.all(promises); // Espera todas carregarem
+
+        // Limpa as zonas e insere as imagens
+        const zones = document.querySelectorAll('.drop-zone');
+        zones.forEach(zone => zone.innerHTML = '');
+
+        state.forEach(tier => {
+          const zone = zones[tier.zone];
+          tier.images.forEach(id => {
+            if (allImages[id]) {
+              const clonedImg = allImages[id].cloneNode(true);
+              addDragListeners(clonedImg);
+              zone.appendChild(clonedImg);
+            }
+          });
+        });
+      };
+
+      reader.readAsText(file);
+    }
+
+    function saveState() {
+      const zones = document.querySelectorAll('.drop-zone');
+      const state = [];
+
+      zones.forEach((zone, zoneIndex) => {
+        const imgs = zone.querySelectorAll('img');
+        const imageIds = Array.from(imgs).map(img => img.getAttribute('data-id'));
+        state.push({ zone: zoneIndex, images: imageIds });
+      });
+
+      const blob = new Blob([JSON.stringify(state)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tierlist.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   </script>
   <div id="imageModal" class="image-modal">
     <div class="modal-content">
