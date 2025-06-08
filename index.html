@@ -194,6 +194,7 @@
       reader.onload = async function (e) {
         const state = JSON.parse(e.target.result);
         const allImages = {};
+        const imageGrid = document.getElementById('image-grid'); // <- importante
 
         // Pré-carrega todas as imagens e guarda em cache
         const promises = [];
@@ -227,6 +228,16 @@
               const clonedImg = allImages[id].cloneNode(true);
               addDragListeners(clonedImg);
               zone.appendChild(clonedImg);
+            }
+          });
+        });
+
+        // 🧼 Remove do imageGrid todas as imagens que já estão nas zonas
+        state.forEach(tier => {
+          tier.images.forEach(id => {
+            const img = imageGrid.querySelector(`[data-id="${id}"]`);
+            if (img) {
+              img.remove();
             }
           });
         });
