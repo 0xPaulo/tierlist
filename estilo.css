@@ -181,22 +181,9 @@ h1 {
   box-shadow: 0 0 25px rgba(255, 255, 0, 0.8);
 }
 
-/* .tier-label {
-  width: 180px;
-  font-weight: 900;
-  padding: var(--espacamento-pequeno);
-  text-align: center;
-  background: var(--gradiente-rosa-ciano);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: var(--tamanho-rotulo-tier);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 2px;
-} */
-
 .tier-label {
   width: 180px;
+  flex-shrink: 0;
   font-weight: 900;
   padding: var(--espacamento-pequeno);
   text-align: center;
