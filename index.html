@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>★☆ PUGO TIER LIST ☆★</title>
   <link rel="stylesheet" href="estilo.css">
-
 </head>
 
 <body>
   <h1>★☆ PUGO TIER LIST ☆★</h1>
-  <button class="btn-neon-ciano" onclick="saveState()">Exportar Tier List</button>
+  <button class="btn-neon-ciano" onclick="exportarTierlist()">Exportar Tier List</button>
   <label for="upload" class="btn-neon-rosa">Importar Tier List</label>
-  <input id="upload" type="file" onchange="loadState(this.files[0])" style="display: none;" />
+  <input id="upload" type="file" onchange="importarTierlist(this.files[0])" style="display: none;" />
 
   <div class="tier-container">
     <div class="tier-row">
@@ -43,7 +42,7 @@
   <script src="main.js"></script>
   <div id="imageModal" class="image-modal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeImageModal()">&times;</button>
+      <button class="close-modal" onclick="fecharModalImagem()">&times;</button>
       <img id="modalImage" class="modal-image" src="" alt="Imagem expandida">
     </div>
   </div>

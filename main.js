@@ -1,199 +1,211 @@
-function createParticle() {
-  const particle = document.createElement("div");
-  particle.className = "particle";
-  particle.style.left = Math.random() * 100 + "vw";
-  particle.style.backgroundColor = ["#ff00ff", "#00ffff", "#ffff00", "#ff0080"][
-    Math.floor(Math.random() * 4)
-  ];
-  document.body.appendChild(particle);
+function criarParticula() {
+  const particula = document.createElement("div");
+  particula.className = "particle";
+  particula.style.left = Math.random() * 100 + "vw";
+  particula.style.backgroundColor = [
+    "#ff00ff",
+    "#00ffff",
+    "#ffff00",
+    "#ff0080",
+  ][Math.floor(Math.random() * 4)];
+  document.body.appendChild(particula);
 
   setTimeout(() => {
-    particle.remove();
+    particula.remove();
   }, 4000);
 }
 
-setInterval(createParticle, 300);
+setInterval(criarParticula, 300);
 
-let draggedElement = null;
+let elementoArrastado = null;
 
-const draggables = document.querySelectorAll(".tier-img");
-const dropZones = document.querySelectorAll(".drop-zone");
-const imageGrid = document.getElementById("image-grid");
+const arrastaveis = document.querySelectorAll(".tier-img");
+const zonasDrop = document.querySelectorAll(".drop-zone");
+const gradeImagens = document.getElementById("image-grid");
 
-function handleDragStart(e) {
-  draggedElement = e.target;
+// Início do arrasto
+function aoIniciarArrasto(e) {
+  elementoArrastado = e.target;
   e.target.style.opacity = "0.5";
   e.dataTransfer.effectAllowed = "move";
   e.dataTransfer.setData("text/html", e.target.outerHTML);
 }
 
-function handleDragEnd(e) {
+// Fim do arrasto
+function aoTerminarArrasto(e) {
   e.target.style.opacity = "1";
-  draggedElement = null;
+  elementoArrastado = null;
 }
 
-function handleDragOver(e) {
+// Quando arrastando sobre uma zona
+function aoArrastarSobre(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = "move";
   e.currentTarget.style.transform = "scale(1.02)";
 }
 
-function handleDragLeave(e) {
+// Quando sai da zona
+function aoSairZona(e) {
   e.currentTarget.style.transform = "scale(1)";
 }
 
-function handleDrop(e) {
+// Solta o elemento na zona
+function aoSoltar(e) {
   e.preventDefault();
   e.currentTarget.style.transform = "scale(1)";
 
-  if (draggedElement) {
-    const newImg = draggedElement.cloneNode(true);
-    addDragListeners(newImg);
-    e.currentTarget.appendChild(newImg);
-    draggedElement.remove();
+  if (elementoArrastado) {
+    const novaImg = elementoArrastado.cloneNode(true);
+    adicionarListenersArrasto(novaImg);
+    e.currentTarget.appendChild(novaImg);
+    elementoArrastado.remove();
   }
 }
 
-function addDragListeners(element) {
-  element.addEventListener("dragstart", handleDragStart);
-  element.addEventListener("dragend", handleDragEnd);
-  addContextMenu(element);
+// Adiciona listeners de arrasto e menu de contexto
+function adicionarListenersArrasto(elemento) {
+  elemento.addEventListener("dragstart", aoIniciarArrasto);
+  elemento.addEventListener("dragend", aoTerminarArrasto);
+  adicionarMenuContexto(elemento);
 }
 
-draggables.forEach(addDragListeners);
+arrastaveis.forEach(adicionarListenersArrasto);
 
-dropZones.forEach((zone) => {
-  zone.addEventListener("dragover", handleDragOver);
-  zone.addEventListener("dragleave", handleDragLeave);
-  zone.addEventListener("drop", handleDrop);
+zonasDrop.forEach((zona) => {
+  zona.addEventListener("dragover", aoArrastarSobre);
+  zona.addEventListener("dragleave", aoSairZona);
+  zona.addEventListener("drop", aoSoltar);
 });
 
-imageGrid.addEventListener("dragover", handleDragOver);
-imageGrid.addEventListener("dragleave", handleDragLeave);
-imageGrid.addEventListener("drop", handleDrop);
+gradeImagens.addEventListener("dragover", aoArrastarSobre);
+gradeImagens.addEventListener("dragleave", aoSairZona);
+gradeImagens.addEventListener("drop", aoSoltar);
 
-dropZones.forEach((zone) => {
-  zone.addEventListener("drop", () => {
-    zone.style.boxShadow = "0 0 30px #ffffff";
+zonasDrop.forEach((zona) => {
+  zona.addEventListener("drop", () => {
+    zona.style.boxShadow = "0 0 30px #ffffff";
     setTimeout(() => {
-      zone.style.boxShadow = "";
+      zona.style.boxShadow = "";
     }, 200);
   });
 });
 
-async function loadImages() {
-  const imageGrid = document.getElementById("image-grid");
-  const imageFormats = ["jpg", "jpeg", "png", "gif", "webp"];
+// Carrega as imagens na grade principal
+async function carregarImagens() {
+  const gradeImagens = document.getElementById("image-grid");
+  const formatos = ["jpg", "jpeg", "png", "gif", "webp"];
 
   for (let i = 1; i <= 685; i++) {
-    for (let format of imageFormats) {
+    for (let formato of formatos) {
       const img = document.createElement("img");
       img.src = `comprimidas/img${i.toString().padStart(3, "0")}.jpg`;
-
-      img.setAttribute("data-id", `img${i.toString().padStart(3, "0")}`); // <-- AQUI
-
+      img.setAttribute("data-id", `img${i.toString().padStart(3, "0")}`);
       img.className = "tier-img";
       img.draggable = true;
       img.alt = `Item ${i}`;
 
       img.onload = function () {
-        imageGrid.appendChild(img);
-        addDragListeners(img);
+        gradeImagens.appendChild(img);
+        adicionarListenersArrasto(img);
       };
 
       img.onerror = function () {
-        // imagem não encontrada, tenta próximo formato
+        // Se não encontrar, tenta o próximo formato
       };
 
-      break; // só tenta o primeiro formato mesmo
+      break; // Só tenta o primeiro formato mesmo
     }
   }
 }
 
-window.addEventListener("load", loadImages);
-function openImageModal(imageSrc) {
+window.addEventListener("load", carregarImagens);
+
+// Modal de imagem
+function abrirModalImagem(srcImagem) {
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
   modal.style.display = "block";
-  modalImg.src = imageSrc;
+  modalImg.src = srcImagem;
   document.body.style.overflow = "hidden"; // Previne scroll
 }
 
-function closeImageModal() {
+function fecharModalImagem() {
   const modal = document.getElementById("imageModal");
   modal.style.display = "none";
   document.body.style.overflow = "auto"; // Restaura scroll
 }
 
-function addContextMenu(img) {
+// Adiciona menu de contexto para expandir imagem
+function adicionarMenuContexto(img) {
   img.addEventListener("contextmenu", (e) => {
     e.preventDefault();
-    openImageModal(img.src);
+    abrirModalImagem(img.src);
   });
 }
 
-document.querySelectorAll(".tier-img").forEach(addContextMenu);
+document.querySelectorAll(".tier-img").forEach(adicionarMenuContexto);
 
 document.getElementById("imageModal").addEventListener("click", (e) => {
   if (e.target.classList.contains("image-modal")) {
-    closeImageModal();
+    fecharModalImagem();
   }
 });
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    closeImageModal();
+    fecharModalImagem();
   }
 });
 
-function loadState(file) {
-  const reader = new FileReader();
+// Importa tierlist de arquivo JSON
+function importarTierlist(arquivo) {
+  const leitor = new FileReader();
 
-  reader.onload = async function (e) {
-    const state = JSON.parse(e.target.result);
-    const allImages = {};
-    const imageGrid = document.getElementById("image-grid"); // <- importante
+  leitor.onload = async function (e) {
+    const estado = JSON.parse(e.target.result);
+    const todasImagens = {};
+    const gradeImagens = document.getElementById("image-grid");
 
     // Pré-carrega todas as imagens e guarda em cache
-    const promises = [];
+    const promessas = [];
 
-    state.forEach((tier) => {
+    estado.forEach((tier) => {
       tier.images.forEach((id) => {
-        if (!allImages[id]) {
+        if (!todasImagens[id]) {
           const img = document.createElement("img");
           img.src = `comprimidas/${id}.jpg`;
           img.className = "tier-img";
           img.draggable = true;
           img.setAttribute("data-id", id);
           img.alt = id;
-          addDragListeners(img);
-          allImages[id] = img;
-          promises.push(new Promise((resolve) => (img.onload = resolve)));
+          adicionarListenersArrasto(img);
+          todasImagens[id] = img;
+          promessas.push(new Promise((resolve) => (img.onload = resolve)));
         }
       });
     });
 
-    await Promise.all(promises); // Espera todas carregarem
+    await Promise.all(promessas);
 
     // Limpa as zonas e insere as imagens
-    const zones = document.querySelectorAll(".drop-zone");
-    zones.forEach((zone) => (zone.innerHTML = ""));
+    const zonas = document.querySelectorAll(".drop-zone");
+    zonas.forEach((zona) => (zona.innerHTML = ""));
 
-    state.forEach((tier) => {
-      const zone = zones[tier.zone];
+    estado.forEach((tier) => {
+      const zona = zonas[tier.zone];
       tier.images.forEach((id) => {
-        if (allImages[id]) {
-          const clonedImg = allImages[id].cloneNode(true);
-          addDragListeners(clonedImg);
-          zone.appendChild(clonedImg);
+        if (todasImagens[id]) {
+          const imgClonada = todasImagens[id].cloneNode(true);
+          adicionarListenersArrasto(imgClonada);
+          zona.appendChild(imgClonada);
         }
       });
     });
 
-    // 🧼 Remove do imageGrid todas as imagens que já estão nas zonas
-    state.forEach((tier) => {
+    // Remove da grade todas as imagens que já estão nas zonas
+    estado.forEach((tier) => {
       tier.images.forEach((id) => {
-        const img = imageGrid.querySelector(`[data-id="${id}"]`);
+        const img = gradeImagens.querySelector(`[data-id="${id}"]`);
         if (img) {
           img.remove();
         }
@@ -201,20 +213,21 @@ function loadState(file) {
     });
   };
 
-  reader.readAsText(file);
+  leitor.readAsText(arquivo);
 }
 
-function saveState() {
-  const zones = document.querySelectorAll(".drop-zone");
-  const state = [];
+// Exporta tierlist para arquivo JSON
+function exportarTierlist() {
+  const zonas = document.querySelectorAll(".drop-zone");
+  const estado = [];
 
-  zones.forEach((zone, zoneIndex) => {
-    const imgs = zone.querySelectorAll("img");
-    const imageIds = Array.from(imgs).map((img) => img.getAttribute("data-id"));
-    state.push({ zone: zoneIndex, images: imageIds });
+  zonas.forEach((zona, idxZona) => {
+    const imgs = zona.querySelectorAll("img");
+    const ids = Array.from(imgs).map((img) => img.getAttribute("data-id"));
+    estado.push({ zone: idxZona, images: ids });
   });
 
-  const blob = new Blob([JSON.stringify(state)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(estado)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
