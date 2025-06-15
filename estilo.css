@@ -193,6 +193,14 @@ h1 {
   animation: titleFloat 4s ease-in-out infinite;
   text-transform: uppercase;
 }
+p {
+  color: #fff;
+  text-shadow: var(--sombra-texto-neon);
+  font-size: 1.2em;
+  /* margin: var(--espacamento-pequeno) 0; */
+  text-align: center;
+  line-height: 1.5;
+}
 
 /* =========================
    5. LAYOUT PRINCIPAL
