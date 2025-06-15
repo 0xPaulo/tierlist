@@ -12,7 +12,7 @@
 <body>
   <h1>★☆ PUGO TIER LIST ☆★</h1>
   <button class="btn-neon-ciano" onclick="exportarTierlist()">Exportar Tier List</button>
-  <label for="upload" class="btn-neon-rosa">Importar Tier List</label>
+  <label for="upload" class="btn-neon-rosa" style="margin-top: 12px;">Importar Tier List</label>
   <input id="upload" type="file" onchange="importarTierlist(this.files[0])" style="display: none;" />
 
   <div class="tier-container">
@@ -40,12 +40,27 @@
 
   <div class="image-grid" id="image-grid">
   </div>
-  <script src="main.js"></script>
+  <script src="js/particulas.js"></script>
+  <script src="js/dragdrop.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/mover-tier.js"></script>
+  <script src="js/imagens.js"></script>
+  <script src="js/tierlist-io.js"></script>
   <div id="imageModal" class="image-modal">
-    <div class="modal-content">
+    <div class="modal-content-pai">
       <button class="close-modal" onclick="fecharModalImagem()">&times;</button>
-      <img id="modalImage" class="modal-image" src="" alt="Imagem expandida">
+      <div class="modal-content">
+        <img class="modal-image" id="modalImage" src="" alt="Imagem expandida">
+      </div>
     </div>
+  </div>
+  <!-- Botões fora do modal -->
+  <div class="modal-buttons-right">
+    <button class="btn-neon-ciano" type="button">INSANO</button>
+    <button class="btn-neon-rosa" type="button">MASSA</button>
+    <button class="btn-neon-ciano" type="button">LEGAL</button>
+    <button class="btn-neon-rosa" type="button">PAIA</button>
+    <button class="btn-neon-ciano" type="button">BUCHA</button>
   </div>
 </body>
 

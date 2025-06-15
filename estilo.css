@@ -1,7 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Courier+New&display=swap"); */
 
 /* =========================
-   VARIÁVEIS E FONTES
+   1. VARIÁVEIS E FONTES
    ========================= */
 @font-face {
   font-family: "Orbitron";
@@ -101,7 +101,7 @@
 }
 
 /* =========================
-   RESET E BASE
+   2. RESET E BASE
    ========================= */
 * {
   box-sizing: border-box;
@@ -124,7 +124,7 @@ body {
 }
 
 /* =========================
-   ANIMAÇÕES
+   3. ANIMAÇÕES
    ========================= */
 @keyframes gradientShift {
   0% {
@@ -179,7 +179,7 @@ body {
 }
 
 /* =========================
-   TIPOGRAFIA
+   4. TIPOGRAFIA
    ========================= */
 h1 {
   color: #fff;
@@ -194,7 +194,7 @@ h1 {
 }
 
 /* =========================
-   CONTAINERS PRINCIPAIS
+   5. LAYOUT PRINCIPAL
    ========================= */
 .tier-container {
   width: 100%;
@@ -222,7 +222,7 @@ h1 {
 }
 
 /* =========================
-   TIER ROWS E LABELS
+   6. TIERS E LABELS
    ========================= */
 .tier-row {
   display: flex;
@@ -288,7 +288,7 @@ h1 {
 }
 
 /* =========================
-   DROP ZONE
+   7. DROP ZONE
    ========================= */
 .drop-zone {
   flex-grow: 1;
@@ -312,7 +312,7 @@ h1 {
 }
 
 /* =========================
-   IMAGENS DAS TIERS
+   8. IMAGENS DAS TIERS
    ========================= */
 .tier-img {
   width: var(--tamanho-imagem-tier);
@@ -337,7 +337,7 @@ h1 {
 }
 
 /* =========================
-   SCROLLBAR PERSONALIZADA
+   9. SCROLLBAR PERSONALIZADA
    ========================= */
 ::-webkit-scrollbar {
   width: 12px;
@@ -354,7 +354,7 @@ h1 {
 }
 
 /* =========================
-   PARTICULAS DECORATIVAS
+   10. PARTICULAS DECORATIVAS
    ========================= */
 .particle {
   position: fixed;
@@ -368,17 +368,14 @@ h1 {
 }
 
 /* =========================
-   MODAL DE IMAGEM
+   11. MODAL DE IMAGEM
    ========================= */
 .image-modal {
   display: none;
   position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.651);
   backdrop-filter: blur(5px);
   pointer-events: auto;
 }
@@ -390,19 +387,10 @@ h1 {
 /* Modal Wrapper */
 .modal-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9998;
-  pointer-events: none;
 }
 
 /* Modal Content */
-.modal-content {
+.modal-content-pai {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -414,6 +402,15 @@ h1 {
   box-shadow: var(--sombra-rosa);
   background-color: rgba(0, 0, 0, 0.7);
 }
+.modal-content {
+  overflow: hidden !important;
+}
+
+.modal-image {
+  padding: 5px;
+  border-radius: var(--borda-arredondada-media);
+  margin-bottom: -4px;
+}
 
 /* Botões do Modal */
 .modal-buttons,
@@ -422,20 +419,22 @@ h1 {
   display: flex;
   gap: 15px;
 }
-.modal-buttons {
-  flex-direction: column;
-  min-width: 150px;
-}
+
 .modal-buttons-container,
 .modal-buttons-right {
   position: fixed;
-  right: 20px;
+  right: 20%;
   top: 50%;
   transform: translateY(-50%);
   flex-direction: column;
-  z-index: 10000;
-  pointer-events: auto;
+  border-radius: var(--borda-arredondada-media);
+  box-shadow: var(--sombra-rosa);
+  padding: 15px;
+  border-radius: var(--borda-arredondada-media);
+  border: var(--borda-tracejada-ciano);
+  backdrop-filter: blur(2px);
 }
+
 .modal-buttons-right {
   display: none;
 }
@@ -443,26 +442,27 @@ h1 {
 /* Botão de Fechar */
 .close-modal {
   position: absolute;
+  z-index: 1;
   top: -15px;
   right: -15px;
   background: var(--gradiente-rosa-ciano);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   font-size: 20px;
   cursor: pointer;
   font-weight: bold;
   box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
 }
 .close-modal:hover {
-  transform: scale(1.1);
+  transform: scale(1.03);
   box-shadow: 0 0 25px rgba(255, 0, 255, 1);
 }
 
 /* =========================
-   BOTÕES NEON
+   12. BOTÕES NEON
    ========================= */
 .btn-neon-ciano,
 .btn-neon-rosa {
@@ -485,7 +485,6 @@ h1 {
   transform: scale(1.03);
 }
 .btn-neon-rosa {
-  margin-top: 10px;
   background-color: var(--rosa-neon);
   border: 2px solid var(--rosa-neon);
   box-shadow: 0 0 10px var(--rosa-neon), 0 0 20px var(--rosa-neon);
@@ -496,7 +495,7 @@ h1 {
 }
 
 /* =========================
-   RESPONSIVIDADE
+   13. RESPONSIVIDADE
    ========================= */
 @media (max-width: 768px) {
   .tier-container,
@@ -525,27 +524,8 @@ h1 {
     justify-content: center;
     margin-top: 20px;
   }
-  .modal-buttons-container,
   .modal-buttons-right {
-    top: auto;
-    bottom: 20px;
-    right: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: none !important;
   }
 }
 
-/* =========================
-   FLEX CONTAINERS MODAL
-   ========================= */
-.modal-flex-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  height: 100%;
-}
