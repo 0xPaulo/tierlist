@@ -3,8 +3,7 @@
 /* Define a fonte variável Orbitron */
 @font-face {
   font-family: "Orbitron";
-  src: url("../fonts/Orbitron/Orbitron-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("fonts/Orbitron/Orbitron-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900; /* Range de pesos suportados (100 a 900) */
   font-display: swap;
 }
