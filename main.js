@@ -1,3 +1,7 @@
+// =======================
+// 1. EFEITO VISUAL: PARTÍCULAS
+// =======================
+
 function criarParticula() {
   const particula = document.createElement("div");
   particula.className = "particle";
@@ -15,15 +19,20 @@ function criarParticula() {
   }, 4000);
 }
 
+// Cria partículas animadas periodicamente
 setInterval(criarParticula, 300);
 
-let elementoArrastado = null;
+// =======================
+// 2. DRAG & DROP DAS IMAGENS
+// =======================
 
+// --- Variáveis globais para drag & drop
+let elementoArrastado = null;
 const arrastaveis = document.querySelectorAll(".tier-img");
 const zonasDrop = document.querySelectorAll(".drop-zone");
 const gradeImagens = document.getElementById("image-grid");
 
-// Início do arrasto
+// --- Funções de drag & drop
 function aoIniciarArrasto(e) {
   elementoArrastado = e.target;
   e.target.style.opacity = "0.5";
@@ -31,29 +40,24 @@ function aoIniciarArrasto(e) {
   e.dataTransfer.setData("text/html", e.target.outerHTML);
 }
 
-// Fim do arrasto
 function aoTerminarArrasto(e) {
   e.target.style.opacity = "1";
   elementoArrastado = null;
 }
 
-// Quando arrastando sobre uma zona
 function aoArrastarSobre(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = "move";
   e.currentTarget.style.transform = "scale(1.02)";
 }
 
-// Quando sai da zona
 function aoSairZona(e) {
   e.currentTarget.style.transform = "scale(1)";
 }
 
-// Solta o elemento na zona
 function aoSoltar(e) {
   e.preventDefault();
   e.currentTarget.style.transform = "scale(1)";
-
   if (elementoArrastado) {
     const novaImg = elementoArrastado.cloneNode(true);
     adicionarListenersArrasto(novaImg);
@@ -62,26 +66,21 @@ function aoSoltar(e) {
   }
 }
 
-// Adiciona listeners de arrasto e menu de contexto
+// --- Utilitário: adiciona listeners de arrasto e menu de contexto em uma imagem
 function adicionarListenersArrasto(elemento) {
   elemento.addEventListener("dragstart", aoIniciarArrasto);
   elemento.addEventListener("dragend", aoTerminarArrasto);
   adicionarMenuContexto(elemento);
 }
 
+// --- Aplica listeners em todas imagens e zonas
 arrastaveis.forEach(adicionarListenersArrasto);
 
 zonasDrop.forEach((zona) => {
   zona.addEventListener("dragover", aoArrastarSobre);
   zona.addEventListener("dragleave", aoSairZona);
   zona.addEventListener("drop", aoSoltar);
-});
-
-gradeImagens.addEventListener("dragover", aoArrastarSobre);
-gradeImagens.addEventListener("dragleave", aoSairZona);
-gradeImagens.addEventListener("drop", aoSoltar);
-
-zonasDrop.forEach((zona) => {
+  // Efeito visual ao soltar imagem
   zona.addEventListener("drop", () => {
     zona.style.boxShadow = "0 0 30px #ffffff";
     setTimeout(() => {
@@ -90,7 +89,14 @@ zonasDrop.forEach((zona) => {
   });
 });
 
-// Carrega as imagens na grade principal
+gradeImagens.addEventListener("dragover", aoArrastarSobre);
+gradeImagens.addEventListener("dragleave", aoSairZona);
+gradeImagens.addEventListener("drop", aoSoltar);
+
+// =======================
+// 3. CARREGAMENTO DAS IMAGENS
+// =======================
+
 async function carregarImagens() {
   const gradeImagens = document.getElementById("image-grid");
   const formatos = ["jpg", "jpeg", "png", "gif", "webp"];
@@ -109,26 +115,21 @@ async function carregarImagens() {
         adicionarListenersArrasto(img);
       };
 
-      img.onerror = function () {
-        // Se não encontrar, tenta o próximo formato
-      };
+      // Não faz nada no erro, pois só tenta o primeiro formato
+      img.onerror = function () {};
 
-      break; // Só tenta o primeiro formato mesmo
+      break;
     }
   }
 }
 
 window.addEventListener("load", carregarImagens);
 
-// Modal de imagem
-// function abrirModalImagem(srcImagem) {
-//   const modal = document.getElementById("imageModal");
-//   const modalImg = document.getElementById("modalImage");
-//   modal.style.display = "block";
-//   modalImg.src = srcImagem;
-//   document.body.style.overflow = "hidden"; // Previne scroll
-// }
+// =======================
+// 4. MODAL DE IMAGEM AMPLIADA
+// =======================
 
+// --- Abre o modal de imagem ampliada
 function abrirModalImagem(srcImagem) {
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
@@ -139,23 +140,30 @@ function abrirModalImagem(srcImagem) {
 
   // Adiciona o listener de clique fora do modal (apenas uma vez)
   if (!modal._hasListener) {
-    // Evita adicionar múltiplos listeners
     modal.addEventListener("click", (e) => {
       if (e.target.classList.contains("image-modal")) {
         fecharModalImagem();
       }
     });
-    modal._hasListener = true; // Marca que já tem listener
+    modal._hasListener = true;
   }
 }
 
+// --- Fecha o modal
 function fecharModalImagem() {
   const modal = document.getElementById("imageModal");
   modal.style.display = "none";
-  document.body.style.overflow = "auto"; // Restaura scroll
+  document.body.style.overflow = "auto";
 }
 
-// Adiciona menu de contexto para expandir imagem
+// --- Fecha modal ao pressionar ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    fecharModalImagem();
+  }
+});
+
+// --- Adiciona menu de contexto para abrir imagem ampliada
 function adicionarMenuContexto(img) {
   img.addEventListener("contextmenu", (e) => {
     e.preventDefault();
@@ -163,15 +171,14 @@ function adicionarMenuContexto(img) {
   });
 }
 
+// --- Aplica menu de contexto em todas imagens já existentes
 document.querySelectorAll(".tier-img").forEach(adicionarMenuContexto);
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    fecharModalImagem();
-  }
-});
+// =======================
+// 5. IMPORTAÇÃO E EXPORTAÇÃO DA TIERLIST
+// =======================
 
-// Importa tierlist de arquivo JSON
+// --- Importa tierlist de arquivo JSON e distribui imagens nas zonas
 function importarTierlist(arquivo) {
   const leitor = new FileReader();
 
@@ -179,10 +186,9 @@ function importarTierlist(arquivo) {
     const estado = JSON.parse(e.target.result);
     const todasImagens = {};
     const gradeImagens = document.getElementById("image-grid");
-
-    // Pré-carrega todas as imagens e guarda em cache
     const promessas = [];
 
+    // Pré-carrega todas as imagens e guarda em cache
     estado.forEach((tier) => {
       tier.images.forEach((id) => {
         if (!todasImagens[id]) {
@@ -201,7 +207,7 @@ function importarTierlist(arquivo) {
 
     await Promise.all(promessas);
 
-    // Limpa as zonas e insere as imagens
+    // Limpa as zonas e insere as imagens importadas
     const zonas = document.querySelectorAll(".drop-zone");
     zonas.forEach((zona) => (zona.innerHTML = ""));
 
@@ -230,7 +236,7 @@ function importarTierlist(arquivo) {
   leitor.readAsText(arquivo);
 }
 
-// Exporta tierlist para arquivo JSON
+// --- Exporta tierlist para arquivo JSON
 function exportarTierlist() {
   const zonas = document.querySelectorAll(".drop-zone");
   const estado = [];
