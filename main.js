@@ -121,12 +121,32 @@ async function carregarImagens() {
 window.addEventListener("load", carregarImagens);
 
 // Modal de imagem
+// function abrirModalImagem(srcImagem) {
+//   const modal = document.getElementById("imageModal");
+//   const modalImg = document.getElementById("modalImage");
+//   modal.style.display = "block";
+//   modalImg.src = srcImagem;
+//   document.body.style.overflow = "hidden"; // Previne scroll
+// }
+
 function abrirModalImagem(srcImagem) {
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
+
   modal.style.display = "block";
   modalImg.src = srcImagem;
-  document.body.style.overflow = "hidden"; // Previne scroll
+  document.body.style.overflow = "hidden";
+
+  // Adiciona o listener de clique fora do modal (apenas uma vez)
+  if (!modal._hasListener) {
+    // Evita adicionar múltiplos listeners
+    modal.addEventListener("click", (e) => {
+      if (e.target.classList.contains("image-modal")) {
+        fecharModalImagem();
+      }
+    });
+    modal._hasListener = true; // Marca que já tem listener
+  }
 }
 
 function fecharModalImagem() {
@@ -144,12 +164,6 @@ function adicionarMenuContexto(img) {
 }
 
 document.querySelectorAll(".tier-img").forEach(adicionarMenuContexto);
-
-document.getElementById("imageModal").addEventListener("click", (e) => {
-  if (e.target.classList.contains("image-modal")) {
-    fecharModalImagem();
-  }
-});
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
