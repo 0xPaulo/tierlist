@@ -171,8 +171,12 @@ function adicionarMenuContexto(img) {
   });
 }
 
-// --- Aplica menu de contexto em todas imagens já existentes
-document.querySelectorAll(".tier-img").forEach(adicionarMenuContexto);
+  
+// --- Aplica menu de contexto em todas imagens com a classe "tier-img"
+const img = document.getElementsByClassName("tier-img");
+for (let i = 0; i < img.length; i++) {
+  adicionarMenuContexto(img[i]);
+}
 
 // =======================
 // 5. IMPORTAÇÃO E EXPORTAÇÃO DA TIERLIST
