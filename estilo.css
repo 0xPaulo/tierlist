@@ -1,4 +1,3 @@
-
 @import url(./css/selecionar_tiers.css);
 
 /* =========================
@@ -200,6 +199,30 @@ p {
   /* margin: var(--espacamento-pequeno) 0; */
   text-align: center;
   line-height: 1.5;
+}
+
+.arraste_aqui_fundo {
+  background-color: var(--fundo-preto-translucido);
+  transition: all 0.3s ease;
+}
+.arraste_aqui_fundo:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+  background-color: var(--fundo-preto-translucido);
+  box-shadow: 0 0 35px var(--rosa-neon);
+}
+
+.arraste_aqui {
+  background-color: var(--fundo-preto-translucido);
+  border: 2px dashed var(--ciano-neon);
+}
+.arraste_aqui:hover {
+  border: 2px dashed var(--rosa-neon);
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 255, 0.2),
+    rgba(0, 255, 255, 0.2)
+  );
 }
 
 /* =========================

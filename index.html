@@ -13,20 +13,22 @@
 
 <body>
   <h1>★☆ PUGO TIER LIST ☆★</h1>
-  <div class="tier-selector-container" style="margin: 20px 0;">
+  <div class="tier-selector-container">
     <label for="tier-select" class="tier-selector-label">Selecionar Tier List:</label>
     <select id="tier-select" class="tier-selector" onchange="alterarTierList()">
       <option value="nes">NES</option>
       <option value="genesis">Mega</option>
-
     </select>
   </div>
 
   <button class="btn-neon-ciano" onclick="exportarTierlist()">Exportar Tier List</button>
-  <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px; text-align: center; margin-top: 12px;">
-    <label style="margin-top: 12px;" class="btn-neon-rosa" for="upload" class="btn-neon-rosa">Importar Tier List</label>
-    <p>ou arraste o arquivo aqui</p>
-    <input id="upload" type="file" onchange="importarTierlist(this.files[0])" style="display: none;" />
+  <label style="margin-top: 12px; margin-bottom: 12px;" class="btn-neon-rosa" for="upload"
+    class="btn-neon-rosa">Importar Tier List</label>
+  <div class="arraste_aqui_fundo">
+    <div id="drop-area" class="arraste_aqui" style=" padding: 20px; text-align: center;">
+      <p>ou arraste o arquivo aqui</p>
+      <input id="upload" type="file" onchange="importarTierlist(this.files[0])" style="display: none;" />
+    </div>
   </div>
 
   <div class="tier-container">

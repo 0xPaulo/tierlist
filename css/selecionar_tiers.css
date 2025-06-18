@@ -11,6 +11,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--espacamento-medio);
+  margin: 20px 0;
 }
 
 .tier-selector-label {
@@ -39,21 +40,20 @@
   transition: border-color 0.2s, box-shadow 0.2s, background 0.3s,
     transform 0.15s;
   appearance: none;
+  text-align: center;
 }
 
 .tier-selector:hover,
 .tier-selector:focus {
   border-color: var(--amarelo-neon);
-  box-shadow: 0 0 20px var(--amarelo-neon), 0 0 30px var(--rosa-neon);
-  background: var(--fundo-preto-translucido);
-  color: #fff;
+  box-shadow: 0 0 20px var(--amarelo-neon), 0 0 15px var(--rosa-neon);
+
   transform: scale(1.03);
 }
 
 .tier-selector:not(:hover):not(:focus) {
-  border-color: var(--rosa-neon); /* garante que volta ao rosa */
+  border-color: var(--rosa-neon);
   box-shadow: 0 0 10px var(--ciano-neon);
-  background: var(--fundo-preto-translucido);
 }
 
 @media (max-width: 768px) {
