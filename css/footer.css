@@ -1,0 +1,11 @@
+.footer {
+  color: #fff;
+  text-shadow: var(--sombra-texto-neon);
+  font-size: var(--tamanho-texto-pequeno);
+  font-weight: 900;
+  margin: var(--espacamento-medio) 0;
+  text-align: center;
+  letter-spacing: var(--espacamento-letras);
+  animation: titleFloat 9s ease-in-out infinite;
+  text-transform: uppercase;
+}
