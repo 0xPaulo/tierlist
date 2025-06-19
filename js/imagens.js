@@ -14,6 +14,8 @@ const domCache = {
 // Formatos de imagem suportados (ordenados por prioridade)
 const FORMATOS_IMAGEM = ["jpg", "jpeg", "png", "gif", "webp"];
 
+const TAMANHO_LOTE = 50; // Ajuste conforme necessário
+
 async function carregarImagens(tierType = "nes") {
   const config = tierLists[tierType];
 
@@ -28,14 +30,15 @@ async function carregarImagens(tierType = "nes") {
     zona.innerHTML = "";
   });
 
-  // Carregamento otimizado com Promise.all
-  const promises = [];
-
-  for (let i = 1; i <= config.total; i++) {
-    promises.push(carregarImagem(i, config));
+  let i = 1;
+  while (i <= config.total) {
+    const promises = [];
+    for (let j = 0; j < TAMANHO_LOTE && i <= config.total; j++, i++) {
+      promises.push(carregarImagem(i, config));
+    }
+    await Promise.all(promises); // Aguarda o lote terminar
+    // Opcional: pode adicionar um pequeno delay aqui para suavizar ainda mais
   }
-
-  await Promise.all(promises);
 }
 
 async function carregarImagem(i, config) {
