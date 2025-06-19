@@ -1,0 +1,64 @@
+/* =========================
+   14. Arrastar Modal
+   ========================= */
+
+/* Controles de posição melhorados */
+.position-controls {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--ciano-neon);
+}
+
+.position-btn {
+  background: transparent;
+  color: var(--ciano-neon);
+  border: 1px solid var(--ciano-neon);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.position-btn:hover {
+  background: var(--ciano-neon);
+  color: black;
+  transform: scale(1.1);
+}
+
+/* Ajuste para os botões right seguirem o modal */
+.modal-buttons-right {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+/* Efeito de arrasto melhorado */
+.modal-content-pai {
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.modal-content-pai:active {
+  cursor: grabbing;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+}
+
+.modal-content-pai.dragging {
+  opacity: 0.9;
+  filter: brightness(1.1);
+}
