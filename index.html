@@ -55,17 +55,11 @@
     </div>
   </div>
   <div class="image-grid" id="image-grid"></div>
-  
+
   <div id="imageModal" class="image-modal">
     <div class="modal-content-pai" id="draggableModal">
       <button class="close-modal" onclick="fecharModalImagem()">&times;</button>
-      <div class="position-controls">
-        <button class="position-btn" oncontextmenu="moveModal(-20, 0); return false;"
-          onclick="moveModal(-5, 0)">←</button>
-        <button class="position-btn" oncontextmenu="moveModal(20, 0); return false;"
-          onclick="moveModal(5, 0)">→</button>
-        <button class="position-btn" onclick="resetModalPosition()">⟲</button>
-      </div>
+
       <div class="modal-content">
         <img class="modal-image" id="modalImage" src="" alt="Imagem expandida">
       </div>
@@ -74,6 +68,9 @@
 
   <!-- Botões fora do modal -->
   <div class="modal-buttons-right" id="modalButtonsRight">
+    <div class="position-controls">
+      <button class="position-btn" onclick="resetModalPosition()">RESET</button>
+    </div>
     <button class="btn-neon-ciano" type="button">INSANO</button>
     <button class="btn-neon-rosa" type="button">MASSA</button>
     <button class="btn-neon-ciano" type="button">LEGAL</button>
