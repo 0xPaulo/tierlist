@@ -54,26 +54,30 @@
       <div class="drop-zone" data-tier="bucha"></div>
     </div>
   </div>
-
-  <div class="image-grid" id="image-grid">
-  </div>
+  <div class="image-grid" id="image-grid"></div>
 
   <div id="imageModal" class="image-modal">
-    <div class="modal-content-pai">
+    <div class="modal-content-pai" id="draggableModal">
       <button class="close-modal" onclick="fecharModalImagem()">&times;</button>
+
       <div class="modal-content">
         <img class="modal-image" id="modalImage" src="" alt="Imagem expandida">
       </div>
     </div>
   </div>
+
   <!-- Botões fora do modal -->
-  <div class="modal-buttons-right">
+  <div class="modal-buttons-right" id="modalButtonsRight">
+    <div class="position-controls">
+      <button class="position-btn" onclick="resetModalPosition()">RESET</button>
+    </div>
     <button class="btn-neon-ciano" type="button">INSANO</button>
     <button class="btn-neon-rosa" type="button">MASSA</button>
     <button class="btn-neon-ciano" type="button">LEGAL</button>
     <button class="btn-neon-rosa" type="button">PAIA</button>
     <button class="btn-neon-ciano" type="button">BUCHA</button>
   </div>
+
 </body>
 <script src="js/particulas.js"></script>
 <script src="js/dragdrop.js"></script>
@@ -83,5 +87,6 @@
 <script src="js/tierlist-io.js"></script>
 <script src="js/solte_aqui.js"></script>
 <script src="js/tierlist-io.js"></script>
+<script src="js/arrastar_modal.js"></script>
 
 </html>
