@@ -2,6 +2,7 @@
 const tierLists = Object.freeze({
   nes: { pasta: "nes", total: 685, formato: "jpg" },
   genesis: { pasta: "genesis", total: 702, formato: "jpg" },
+  pcEngine: { pasta: "pcEngine", total: 173, formato: "jpg" },
 });
 
 // Cache de elementos DOM
