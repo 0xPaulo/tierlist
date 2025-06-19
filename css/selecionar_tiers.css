@@ -1,5 +1,5 @@
 .tier-selector-container {
-  width: 100%;
+  width: 70%;
   max-width: var(--largura-container);
   margin: var(--espacamento-medio) auto;
   background: var(--fundo-preto-translucido);

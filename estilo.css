@@ -26,6 +26,7 @@
 
   /* Fundos e Bordas */
   --fundo-preto-translucido: rgba(0, 0, 0, 0.8);
+  --fundo-preto-translucido-fraco: rgba(0, 0, 0, 0.432);
   --fundo-branco-translucido: rgba(255, 255, 255, 0.1);
   --fundo-radial-escuro: radial-gradient(
     circle,
@@ -196,24 +197,24 @@ p {
   color: #fff;
   text-shadow: var(--sombra-texto-neon);
   font-size: 1.2em;
-  /* margin: var(--espacamento-pequeno) 0; */
   text-align: center;
   line-height: 1.5;
 }
 
 .arraste_aqui_fundo {
   background-color: var(--fundo-preto-translucido);
+  border-radius: var(--borda-arredondada-pequena);
   transition: all 0.3s ease;
 }
 .arraste_aqui_fundo:hover {
   transform: scale(1.02);
   transition: all 0.3s ease;
-  background-color: var(--fundo-preto-translucido);
   box-shadow: 0 0 35px var(--rosa-neon);
 }
 
 .arraste_aqui {
-  background-color: var(--fundo-preto-translucido);
+  border-radius: var(--borda-arredondada-pequena);
+  background-color: var(--fundo-preto-translucido-fraco);
   border: 2px dashed var(--ciano-neon);
 }
 .arraste_aqui:hover {
